@@ -189,8 +189,9 @@
 			<div><b><spring:message code="diagnosiscapturerwanda.labs"/></b></div>
 			<div id="labsDiv">
 					<script>
-					$j(document).ready(function() {
-						 $j('#labsDiv').load('${pageContext.request.contextPath}/module/diagnosiscapturerwanda/labs.form?visitId=${visit.visitId}&patientId=${patient.patientId}&readOnly=true');
+					var $dia = jQuery.noConflict();
+					$dia(document).ready(function() {
+						 $dia('#labsDiv').load('${pageContext.request.contextPath}/module/diagnosiscapturerwanda/labs.form?visitId=${visit.visitId}&patientId=${patient.patientId}&readOnly=true');
 					});
 					
 					</script>

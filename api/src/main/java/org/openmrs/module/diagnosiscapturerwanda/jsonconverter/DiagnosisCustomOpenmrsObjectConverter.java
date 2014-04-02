@@ -29,7 +29,7 @@ import org.springframework.core.convert.converter.Converter;
 
 /**
  * hacky converter to get SimpleObjects that are easily converted to JSON for this module
- * @see DiagnosisUtil.convertToJSON
+ * @see <code>DiagnosisUtil.convertToJSON</code>
  */
 public class DiagnosisCustomOpenmrsObjectConverter implements Converter<OpenmrsObject, SimpleObject> {
 

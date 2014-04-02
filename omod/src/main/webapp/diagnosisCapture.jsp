@@ -132,24 +132,26 @@ var _diagnosis=${concept_diagnosis.conceptId};
  * this writes a document.ready function to set correct values according to encounterId request param
  */
 <c:if test="${!empty obsGroup}">
-$j(document).ready(function() {
+
+var $dia = jQuery.noConflict();
+$dia(document).ready(function() {
 		<c:if test="${obsGroup.concept == concept_set_primary_diagnosis}">
-			$j("#primarySecondarySelect").val(0);
+			$dia("#primarySecondarySelect").val(0);
 		</c:if>
 		<c:if test="${obsGroup.concept == concept_set_secondary_diagnosis}">
-			$j("#primarySecondarySelect").val(1);
+			$dia("#primarySecondarySelect").val(1);
 		</c:if>
 		<c:forEach items="${obsGroup.groupMembers}" var="groupObs"><!--  for each set of group members -->
 			<c:if test="${groupObs.concept == concept_primary_care_diagnosis && !empty groupObs.valueCoded}">
 				setNewDiagnosis(${groupObs.valueCoded}, '${groupObs.valueCoded.name.name}');
-				$j("#editNote").html(' (<spring:message code="diagnosiscapturerwanda.editing"/>) ');
+				$dia("#editNote").html(' (<spring:message code="diagnosiscapturerwanda.editing"/>) ');
 			</c:if>
 			<c:if test="${groupObs.concept == concept_diagnosis_other}">
-			    $j("#editNote").html(' (<spring:message code="diagnosiscapturerwanda.editing"/>) ');
-				$j("#diagnosisOtherTextArea").html('${groupObs.valueText}');
+			    $dia("#editNote").html(' (<spring:message code="diagnosiscapturerwanda.editing"/>) ');
+				$dia("#diagnosisOtherTextArea").html('${groupObs.valueText}');
 			</c:if>
 			<c:if test="${groupObs.concept == concept_confirmed_suspected && !empty groupObs.valueCoded}">
-				$j("#confirmedSuspectedSelect").val(${groupObs.valueCoded});
+				$dia("#confirmedSuspectedSelect").val(${groupObs.valueCoded});
 			</c:if>
 		</c:forEach>	
 });

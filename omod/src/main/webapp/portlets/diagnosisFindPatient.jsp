@@ -16,8 +16,9 @@
 			<openmrs:htmlInclude file="/scripts/jquery-ui/js/openmrsSearch.js" />
 
 			<script type="text/javascript">
+				var $dia = jQuery.noConflict();
 				var lastSearch;
-				$j(document).ready(function() {
+				$dia(document).ready(function() {
 					new OpenmrsSearch("findPatients", false, doPatientSearch, doSelectionHandler,
 						[	{fieldName:"identifier", header:omsgs.identifier},
 							{fieldName:"givenName", header:omsgs.givenName},

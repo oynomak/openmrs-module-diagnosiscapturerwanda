@@ -67,7 +67,9 @@
 <div class="boxInner" id="queueDiv">
 </div>
 	 <script type="text/javascript">
-	 $j(document).ready(function() {
+	 
+	 var $dia = jQuery.noConflict();
+	 $dia(document).ready(function() {
 		 loadPatientQueue();
 	 });
 	 
@@ -79,7 +81,7 @@
 	 
 	 function loadPatientQueue(){
 		 clearTimeout(poll);
-		 $j.getJSON('getJSONQueue.list', function(json) {
+		 $dia.getJSON('getJSONQueue.list', function(json) {
 			 var ret = "<table class='thinBorder'>";
 			 if (json == null || json.length == 0) {
 				 ret = "<tr><td>&nbsp;<span> <spring:message code='diagnosiscapturerwanda.noQueueItemsToDisplay'/> </span>&nbsp;</td></tr>";
@@ -87,7 +89,7 @@
 				 
 				 //build table headers:
 			     ret += "<tr style='background-color: whitesmoke;'>"		 
-				 $j.each(json, function(item) {
+				 $dia.each(json, function(item) {
 				 	 ret += "<th>&nbsp;<span>";
 					 ret += json[item]["serviceName"];
 					 ret += "</span>&nbsp;</th>";
@@ -95,21 +97,21 @@
 			     ret += "</tr>";
 			    // this row is 'serving number XXX'
 			    ret+="<tr>";
-			    $j.each(json, function(item) {
+			    $dia.each(json, function(item) {
 			    	ret += "<td> &nbsp; <spring:message code='diagnosiscapturerwanda.nowServingNumber'/> &nbsp;&nbsp; <span style='font-size:120%'><b>" + json[item]['queueNumber'] + "</b></span> &nbsp;</td>";
 			    });	
 			    ret+="<tr>";
 			    
 			    //number of people waiting for this service
 			    ret+="<tr>";
-			    $j.each(json, function(item) {
+			    $dia.each(json, function(item) {
 			    	ret += "<td> &nbsp; <spring:message code='diagnosiscapturerwanda.numberOfPeopleWaitingForThisService'/> " + json[item]['serviceCount'] + " &nbsp;</td>";
 			    });	
 			    ret+="<tr>";
 			    
 			 	//build table rows:
 			     ret += "<tr>"		 
-				 $j.each(json, function(item) {
+				 $dia.each(json, function(item) {
 				 	 ret += "<td> &nbsp;<button class='genericButton' onClick='processQueueSelection(" + json[item]["patientId"] + ", \"" + json[item]["encounterUuid"] + "\", \"process\" )'>";
 					 ret += json[item]["patientIdentifier"] + " " + json[item]["familyName"] + " " + json[item]["givenName"]+ " (" + json[item]["gender"] + ")";
 					 ret += "</button> &nbsp;&nbsp; <button class='genericButton' onClick='processQueueSelection(" + json[item]["patientId"] + ", \"" + json[item]["encounterUuid"] + "\", \"skip\" )'><spring:message code='diagnosiscapturerwanda.skip'/></button></td>";
@@ -117,7 +119,7 @@
 			     ret += "</tr>";	
 			 }	
 			 ret+="</table>";
-			 $j("#queueDiv").html(ret);
+			 $dia("#queueDiv").html(ret);
 			 runPoll();
 		 });
 	 }
@@ -128,7 +130,7 @@
 			 if (!conf)
 				 return;
 		 }	
-		 $j.getJSON('processQueueItem.list?patientId=' + patientId + '&encounterUuid=' + encounterUuid + '&action=' + action, function(json){
+		 $dia.getJSON('processQueueItem.list?patientId=' + patientId + '&encounterUuid=' + encounterUuid + '&action=' + action, function(json){
 			 if (json.result == "SUCCESS" && action == "skip"){
 				 loadPatientQueue();
 			 } else if (json.result == "SUCCESS" && action == "process"){
